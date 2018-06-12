@@ -20,7 +20,7 @@ double get_step(int adapt, double fx_cur, double fx_nxt, double cur_step, double
 /*	Function localization():
 	fp - investigated function, x_min - point of start interval, x_ max - point of end, step - step of localization algorithm
 	daptive step 0 - off, 1 - on, speed - maximum "speed" of function */
-List* localization( double (*function)(double x), double x_min, double x_max, double step, int adapt, double max_function_speed);
+List* localization( double (*function)(double x), double max_iteration, double step, int adapt, double max_function_speed);
 
 
 #endif

@@ -65,24 +65,26 @@ double get_step(int adapt, double fx_cur, double fx_nxt, double cur_step, double
 
 }
 
-List* localization( double (*function)(double x), double x_min, double x_max, double step, int adapt, double max_function_speed) {
+List* localization( double (*function)(double x), double max_iteration, double step, int adapt, double max_function_speed) {
 	List* lst = init_list();
 	double x_prv = 0;
-	double x_cur = x_min;
-	double x_nxt = x_min + step;
+	double x_cur = 0;
+	double x_nxt = x_cur + step;
 	double fx_cur = function(x_cur);
 	double fx_nxt = function(x_nxt);
 	int flag = 0;		//	флаг, который фиксирует рост функции. у нас функция убывающая, но так удобнее тестировать я думаю
 						//	теперь программа должна реагировать не первое fx_nxt >= fx_cur а остальные пропускать, пока функция еще раз
 						//	не изменит свой знак 0 - еще не росла 1 - уже росла
 	step = get_step(0, fx_cur, fx_nxt, step, max_function_speed);
+
+	int iteration = 1;
 	
 	if (fx_nxt >= fx_cur) {
 		add_in_list(&lst, x_cur, x_nxt);
 		flag = 1;	//	function increase or stable
 		//remember segment{x_nxt, x_cur}
 	}
-	while (x_nxt <= x_max) {
+	while (iteration <= max_iteration) {
 		x_prv = x_cur;
 		x_cur = x_nxt;
 		x_nxt = x_cur + step;
@@ -99,6 +101,7 @@ List* localization( double (*function)(double x), double x_min, double x_max, do
 			}
 		}
 		step = get_step(adapt, fx_cur, fx_nxt, step, max_function_speed);
+		iteration++;
 	}
 	return lst;
 }
