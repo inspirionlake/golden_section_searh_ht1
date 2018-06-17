@@ -5,7 +5,8 @@
 #include "golden_section_search.h"
 
 
-void golden_section_search(double *minimum, double (*function)(double x), List* lst, double accuracy, int quantity) {
+void golden_section_search(double *minimum, double (*function)(double x),
+							List* lst, double accuracy, int quantity) {
 	//	golden section search
 	double end = get_end(lst);
 	double start = get_start(lst);
@@ -42,9 +43,7 @@ void golden_section_search(double *minimum, double (*function)(double x), List* 
 		end = get_end(lst);
 		start = get_start(lst);
 	}
-
 //	return (end + start) / 2;
-
 }
 
 double get_step(int adapt, double fx_cur, double fx_nxt, double cur_step, double max_function_speed) {
@@ -65,7 +64,8 @@ double get_step(int adapt, double fx_cur, double fx_nxt, double cur_step, double
 
 }
 
-List* localization( double (*function)(double x), double max_iteration, double step, int adapt, double max_function_speed) {
+List* localization( double (*function)(double x), double max_iteration,
+					double step, int adapt, double max_function_speed) {
 	List* lst = init_list();
 	double x_prv = 0;
 	double x_cur = 0;
